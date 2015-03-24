@@ -75,7 +75,7 @@ Systems on local network
 
 SMB
  * smbutil -v status -ae <ip>
- * 'for i in `arp -a | cut -d' ' -f2 | cut -d'(' -f2 | cut -d')' -f1`; do smbutil -v status -ae $i; done' 
+ * ''' for i in `arp -a | cut -d' ' -f2 | cut -d'(' -f2 | cut -d')' -f1`; do smbutil -v status -ae $i; done '''
 
 ### Mounts ###
 #### List Mounted Devices ####
