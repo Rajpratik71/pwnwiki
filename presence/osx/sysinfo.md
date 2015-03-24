@@ -27,6 +27,8 @@ Quick screen shot using the *screencapture* command with one second (default is 
 
 ### User Accounts ###
 
+There are several ways to get at user accounts besides listing them. Check login prompts and mounted devices. In the case of the later, the username AND password might be exposed in the mounting command.
+
 List All Accounts
 
  * ``` dscacheutil -q user ```
