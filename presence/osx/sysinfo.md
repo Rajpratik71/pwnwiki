@@ -35,10 +35,9 @@ Dump passwords
  
   NOTE: requires Administrative privileges
 
-OSX Version
-
-    sw_vers <- detail about product name, version, and build
-    sw_vers -productVersion <- Provides just the version number, good for scripts that are checking for versions 
+OS X Operating System Version
+ * sw_vers
+ * sw_vers -productVersion
 
 ### System information ###
 Generate a text report with the standard detail level.
