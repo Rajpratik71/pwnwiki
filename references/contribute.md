@@ -2,11 +2,12 @@
 We want/need your help! Please contribute to this project is via GitHub (https://github.com/pwnwiki/pwnwiki.github.io). That allows us to get your project-ready content incorporated into the wiki fast. 
 
 ## Git Updates
- * [Fork The PwnWiki Repo](https://help.github.com/articles/fork-a-repo/) and set up [Two-factor Authentication](https://help.github.com/articles/about-two-factor-authentication/).
+ * [Fork The PwnWiki Repo](https://help.github.com/articles/fork-a-repo/), configure upstream repo, and set up [Two-factor Authentication](https://help.github.com/articles/about-two-factor-authentication/).
  * New topics are added by generating topic.md files in the appropriate directory. Add a new topic directory, if necessary.
  * Updates are performed by editing the topic.md file using [GitHub Wiki Markdown](https://help.github.com/articles/markdown-basics/)
  * Updates performed via command line access need to be added, committed, and pushed to your forked repo.
  * Updates performed via GitHub file editing functionality need to be pulled to your local repos.
+ * Periodically [sync upstream](https://help.github.com/articles/syncing-a-fork/) and then `git push` to your Github repo.
  * Contributions to the main PwnWiki can be performed via [Pull Requests](https://help.github.com/articles/using-pull-requests/).
  * TODO: update how to handle images and screen shots
  * TODO: update how to handle sliders and Show/Hide
