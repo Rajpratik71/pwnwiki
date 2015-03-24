@@ -78,6 +78,8 @@ SMB
  * ``` for i in `arp -a | cut -d' ' -f2 | cut -d'(' -f2 | cut -d')' -f1`; do smbutil -v status -ae $i; done ```
 
 ### Mounts ###
+TODO: Move mounting to it's own file.
+
 #### List Mounted Devices ####
  * ``` mount ```
  * ``` ls /Volumes ```
