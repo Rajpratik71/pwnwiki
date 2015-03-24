@@ -2,13 +2,13 @@
 We want/need your help! Please contribute to this project is via GitHub (https://github.com/pwnwiki/pwnwiki.github.io). That allows us to get your project-ready content incorporated into the wiki fast. Check out the https://github.com/pwnwiki/pwnwiki.github.io/wiki page for details on how to contribute.
 
 ## Git Updates
-*[Fork The PwnWiki Repo](https://help.github.com/articles/fork-a-repo/) and set up [Two-factor Authentication](https://help.github.com/articles/about-two-factor-authentication/).
-*New topics are added by generating topic.md files in the appropriate directory. Add a new topic directory, if necessary.
-*Updates are performed by editing the topic.md file using [GitHub Wiki Markdown](https://help.github.com/articles/markdown-basics/)
-*Updates performed via command line access need to be added, committed, and pushed to your forked repo.
-*Updates performed via GitHub file editing functionality need to be pulled to your local repos.
-*Contributions to the main PwnWiki can be performed via [Pull Requests](https://help.github.com/articles/using-pull-requests/).
-*TODO: update how to handle images and screen shots
+ * [Fork The PwnWiki Repo](https://help.github.com/articles/fork-a-repo/) and set up [Two-factor Authentication](https://help.github.com/articles/about-two-factor-authentication/).
+ * New topics are added by generating topic.md files in the appropriate directory. Add a new topic directory, if necessary.
+ * Updates are performed by editing the topic.md file using [GitHub Wiki Markdown](https://help.github.com/articles/markdown-basics/)
+ * Updates performed via command line access need to be added, committed, and pushed to your forked repo.
+ * Updates performed via GitHub file editing functionality need to be pulled to your local repos.
+ * Contributions to the main PwnWiki can be performed via [Pull Requests](https://help.github.com/articles/using-pull-requests/).
+ * TODO: update how to handle images and screen shots
 
 ## Non-Git Updates
 We realize that not everyone can/wants to submit content via GitHub and that's cool. If your go-to content is not up here and you don't want to spend the time becoming a Git Jedi, just visit our [Google Form](https://docs.google.com/forms/d/1N7-jRjnUXoz-UwB2h0du2IrskFJW6hBGs4YsTwvEncE/viewform). Due to the large amount of submissions and content, there may be a delay between your posting and us getting your content into the project. Thanks for your submissions and your patience! 
