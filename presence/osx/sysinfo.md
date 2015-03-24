@@ -16,7 +16,7 @@ Command line programs demonstrated below are provided in the form to provide inf
 
 ## Command Line Access
 ### Screen Shot ###
-Quick screen shot using the 'screencapture' command with one second (default is 5) delay and no sound. 
+Quick screen shot using the *screencapture* command with one second (default is 5) delay and no sound. 
  * screencapture -x -T 1 ~/.ing/screenshot.png
  
  NOTE: Getting a single unfocused window using the Window ID isn't simple: http://apple.stackexchange.com/questions/56561/how-do-i-find-the-windowid-to-pass-to-screencapture-l 
@@ -27,7 +27,7 @@ List All Accounts
  * cat /private/etc/master.password 
 
 List User Accounts
- * dscacheutil -q user | grep -A 3 -B 2 -e uid:\ 5'[0-9][0-9]' 
+ * 'dscacheutil -q user | grep -A 3 -B 2 -e uid:\ 5'[0-9][0-9]' '
 
 Dump passwords
  * sudo dscl . read /Users/<user>/ AuthenticationAuthority
@@ -76,7 +76,7 @@ Systems on local network
 
 SMB
  * smbutil -v status -ae <ip>
- * for i in `arp -a | cut -d' ' -f2 | cut -d'(' -f2 | cut -d')' -f1`; do smbutil -v status -ae $i; done 
+ * 'for i in `arp -a | cut -d' ' -f2 | cut -d'(' -f2 | cut -d')' -f1`; do smbutil -v status -ae $i; done' 
 
 ### Mounts ###
 #### List Mounted Devices ####
