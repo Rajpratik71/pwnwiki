@@ -9,6 +9,7 @@ We want/need your help! Please contribute to this project is via GitHub (https:/
  * Updates performed via GitHub file editing functionality need to be pulled to your local repos.
  * Contributions to the main PwnWiki can be performed via [Pull Requests](https://help.github.com/articles/using-pull-requests/).
  * TODO: update how to handle images and screen shots
+ * TODO: update how to handle sliders and Show/Hide
 
 ## Non-Git Updates
 We realize that not everyone can/wants to submit content via GitHub and that's cool. 
