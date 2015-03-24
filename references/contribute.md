@@ -11,7 +11,13 @@ We want/need your help! Please contribute to this project is via GitHub (https:/
  * TODO: update how to handle images and screen shots
 
 ## Non-Git Updates
-We realize that not everyone can/wants to submit content via GitHub and that's cool. If your go-to content is not up here and you don't want to spend the time becoming a Git Jedi, just visit our [Google Form](https://docs.google.com/forms/d/1N7-jRjnUXoz-UwB2h0du2IrskFJW6hBGs4YsTwvEncE/viewform). Due to the large amount of submissions and content, there may be a delay between your posting and us getting your content into the project. Thanks for your submissions and your patience! 
+We realize that not everyone can/wants to submit content via GitHub and that's cool. 
+
+ * Want to discuss PwnWiki.github.io content? Talk to us at the [PwnWiki Google Form](https://docs.google.com/forms/d/1N7-jRjnUXoz-UwB2h0du2IrskFJW6hBGs4YsTwvEncE/viewform). 
+ * Issues can always be brought to our attention via the [PwnWiki Issue  Management](https://github.com/pwnwiki/pwnwiki.github.io/issues) page.
+ * Due to the large amount of submissions and content, there may be a delay between your posting and us getting your content into the project. 
+
+Thanks for your submissions and your patience! 
 
 - - - - - -
 ## Curators:
