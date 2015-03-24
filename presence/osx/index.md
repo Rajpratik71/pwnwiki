@@ -4,3 +4,4 @@ Command that can be executed from the context of a shell prompt that help gain i
 
   * [Blind Files](blind.md) - Files to look for on the system.
   * [Finding Files](find_files.md) - How to search for files.
+  * [System Information](sysinfo.md) - How to gather system information from command line and GUI
