@@ -1,5 +1,5 @@
 # Submitting Content
-We want/need your help! Please contribute to this project is via GitHub (https://github.com/pwnwiki/pwnwiki.github.io). That allows us to get your project-ready content incorporated into the wiki fast. Check out the https://github.com/pwnwiki/pwnwiki.github.io/wiki page for details on how to contribute.
+We want/need your help! Please contribute to this project is via GitHub (https://github.com/pwnwiki/pwnwiki.github.io). That allows us to get your project-ready content incorporated into the wiki fast. 
 
 ## Git Updates
  * [Fork The PwnWiki Repo](https://help.github.com/articles/fork-a-repo/) and set up [Two-factor Authentication](https://help.github.com/articles/about-two-factor-authentication/).
