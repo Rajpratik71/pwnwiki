@@ -74,6 +74,12 @@ List network interfaces
  * ``` ifconfig ```
  * ``` scutil --nwi ``` 
 
+Wireless interface, network scan, and connection
+
+* ``` /System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I ```
+* ``` /System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -s ```
+* ``` networksetup -setairportnetwork en1 <SSID> <PASSWORD> ```
+
 Routes
 
  * ``` netstat -r  ```
