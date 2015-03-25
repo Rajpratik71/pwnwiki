@@ -113,5 +113,3 @@ SMB
  * ``` mount ```
  * ``` ls /Volumes ```
 
-## GUI Access
-TODO: Update
