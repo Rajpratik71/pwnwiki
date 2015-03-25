@@ -11,7 +11,7 @@ This is the really cool thing about this wiki: when you do a ```git clone``` of 
 
   1. Clone the repository or pull the archive ([download zip](https://github.com/pwnwiki/pwnwiki.github.io/archive/master.zip)) of the repo
   2. Open index.html
-  3. Most modern browsers don't allow the access of local files from a locally loaded HTML file. On Windows you can use [Mongoose Tiny](http://cesanta.com/downloads.html) or [HFS](http://www.rejetto.com/hfs/) to host the files locally. On OSX and Linux `python -m SimpleHTTPServer` seems to work just fine.
+  3. Most modern browsers don't allow the access of local files from a locally loaded HTML file. On Windows you can use [Mongoose Tiny](http://cesanta.com/downloads.html) or [HFS](http://www.rejetto.com/hfs/) to host the files locally. On OSX and Linux `python -m SimpleHTTPServer` seems to work just fine or try the `pypwnwiki.py` script if you need to specify a particular network address or service port.
 
 **Referenced tools can be found here: https://github.com/mubix/post-exploitation (If they aren't built into the OS).**
 
