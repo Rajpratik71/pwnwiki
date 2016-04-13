@@ -51,11 +51,11 @@ If you have Docker installed, you can run an nginx container to serve the pwnwik
     
   2. Run the container, mapping port `80` to some random high-numbered port:
 
-     $ docker run -d -p 1337:80 --name pwnwiki pwnwiki
-     bf4cec957eb6a66142ae993d741213176c621f547a705d2f5747ded1619f4d21
-     $ docker ps
-     CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                           NAMES
-     bf4cec957eb6        pwnwiki             "/bin/sh -c 'nginx -g"   3 seconds ago       Up 1 seconds        443/tcp, 0.0.0.0:1337->80/tcp   pwnwiki```
+         $ docker run -d -p 1337:80 --name pwnwiki pwnwiki
+         bf4cec957eb6a66142ae993d741213176c621f547a705d2f5747ded1619f4d21
+         $ docker ps
+         CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                           NAMES
+         bf4cec957eb6        pwnwiki             "/bin/sh -c 'nginx -g"   3 seconds ago       Up 1 seconds        443/tcp, 0.0.0.0:1337->80/tcp   pwnwiki```
 
   3. Open a browser to the port you chose on `localhost` (or `127.0.0.1`). On a Mac, do:
 
