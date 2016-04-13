@@ -57,7 +57,7 @@ If you have Docker installed, you can run an nginx container to serve the pwnwik
          CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                           NAMES
          bf4cec957eb6        pwnwiki             "/bin/sh -c 'nginx -g"   3 seconds ago       Up 1 seconds        443/tcp, 0.0.0.0:1337->80/tcp   pwnwiki```
 
-  3. Open a browser to the port you chose on `localhost` (or `127.0.0.1`). On a Mac, do:
+  3. Open a browser to the port you chose on `localhost` (or `127.0.0.1`). On a Mac with Docker for Mac, you can do:
 
      ```$ open http://127.0.0.1:1337/```
 
