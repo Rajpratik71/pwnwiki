@@ -12,10 +12,15 @@ This is the really cool thing about this wiki: when you do a ```git clone``` of 
   1. Clone the repository or pull the archive ([download zip](https://github.com/pwnwiki/pwnwiki.github.io/archive/master.zip)) of the repo
   2. Open index.html
   3. Most modern browsers don't allow the access of local files from a locally loaded HTML file. On Windows you can use [Mongoose Tiny](http://cesanta.com/downloads.html) or [HFS](http://www.rejetto.com/hfs/) to host the files locally. On OSX and Linux `python -m SimpleHTTPServer` seems to work just fine.
+  4. Build a Docker container and run it (see instructions below) to provide local HTTP access.
 
 **Referenced tools can be found here: https://github.com/mubix/post-exploitation (If they aren't built into the OS).**
 
-If you have Docker installed, you can run an nginx container to serve the pwnwiki files locally.
+#### Serving pwnwiki content using a local Docker container:
+
+You can have [Docker](https://www.docker.com) installed, you can use the `Dockerfile` to build an `nginx`
+container that will serve the pwnwiki files locally, allowing full off-line
+access. Follow these steps
 
   1. If you are just starting out, after cloning this repo you can build a Docker container
      using the included ``Dockerfile``:
