@@ -23,7 +23,7 @@ that serves the pwnwiki content with a full web server (in this case, using `ngi
 locally requiring no network access (or allowing your red team to access the files on a local VLAN
 by setting up your own addressing/routing rules.)
 
-To do this with native Linux Docker, Docker for Mac[^1], or Docker for Windows[^1], follow these steps:
+To do this with native Linux Docker, Docker for Mac<sup>1</sup>, or Docker for Windows<sup>1</sup>, follow these steps:
 
   1. If you are just starting out, after cloning this repo you can build a Docker container
      using the included ``Dockerfile``:
@@ -77,8 +77,7 @@ To do this with native Linux Docker, Docker for Mac[^1], or Docker for Windows[^
 
   6. Remove the container with: `docker rm pwnwiki`
 
-[^1]:
-Using Docker Machine will also work on Mac or Windows, but you will have to go
+[<sup>1</sup>]: Using Docker Machine will also work on Mac or Windows, but you will have to go
 through an extra step to determine the IP address to use to get to the `nginx`
 server in the Docker container. These instructions assume use of the native
 Docker for Mac or Docker for Windows apps.
