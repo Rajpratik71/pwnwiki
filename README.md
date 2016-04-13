@@ -77,7 +77,7 @@ To do this with native Linux Docker, Docker for Mac<sup>1</sup>, or Docker for W
 
   6. Remove the container with: `docker rm pwnwiki`
 
-[<sup>1</sup>]: Using Docker Machine will also work on Mac or Windows, but you will have to go
+[Footnote 1]: Using Docker Machine will also work on Mac or Windows, but you will have to go
 through an extra step to determine the IP address to use to get to the `nginx`
 server in the Docker container. These instructions assume use of the native
 Docker for Mac or Docker for Windows apps.
