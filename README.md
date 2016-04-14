@@ -1,4 +1,8 @@
+![Welcome To PwnWiki.io](images/logo.jpg)
+
 **PwnWiki.io** - __The notes section of the pentesters mind.__
+
+[Image Generated Here](http://www.addletters.com/pictures/restaurant-sign-generator/4772466.htm#.UplRZ42PuuY)
 
 This is a collection TTPs (tools, tactics, and procedures) for what to do after access has been gained to victim systems during the course of performing penetration/red team testing.
 
@@ -11,10 +15,10 @@ This is the really cool thing about this wiki: when you do a ```git clone``` of 
 
   1. Clone the repository or pull the archive ([download zip](https://github.com/pwnwiki/pwnwiki.github.io/archive/master.zip)) of the repo
   2. Open index.html
-  3. Most modern browsers don't allow the access of local files from a locally loaded HTML file. On Windows you can use [Mongoose Tiny](http://cesanta.com/downloads.html) or [HFS](http://www.rejetto.com/hfs/) to host the files locally. On OSX and Linux `python -m SimpleHTTPServer` seems to work just fine.
-  4. ... or, build a Docker container and run it (following [these instructions][docker.md]) to provide local HTTP access.
+  3. Most modern browsers don't allow the access of local files from a locally loaded HTML file. On Windows you can use [Mongoose Tiny](http://cesanta.com/downloads.html) or [HFS](http://www.rejetto.com/hfs/) to host the files locally. On OSX and Linux `python -m SimpleHTTPServer` seems to work just fine.[<sup>1</sup>]
+  4. ... or, build a Docker container and run it (following [these instructions](docker.md)) to provide local HTTP access.
 
-**Referenced tools can be found here: https://github.com/mubix/post-exploitation (If they aren't built into the OS).**
+[Footnote 1] Referenced tools can be found here: https://github.com/mubix/post-exploitation (If they aren't built into the OS).
 
 - - - - - -
 ### Submitting Content
