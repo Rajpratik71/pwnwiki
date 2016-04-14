@@ -26,14 +26,6 @@ PWNWIKI_PORT="${PWNWIKI_PORT:-1337}"
 PWNWIKI_URL="http://${PWNWIKI_IP}:${PWNWIKI_PORT}/"
 OS="$(uname -s)"
 
-# Hack for Docker on Mac. (Doesn't seem to work with 127.0.0.1
-# for some reason, and I don't have time to debug it.)
-if [ $OS == "Darwin" -a ${PWNWIKI_IP}="127.0.0.1" ]; then
-	# This might be a bug in Docker for Mac? Not sure.
-	PWNWIKI_IP="0.0.0.0"
-	PWNWIKI_URL="http://${PWNWIKI_IP}:${PWNWIKI_PORT}/"
-fi
-
 echo "[+] (Re)building ${PWNWIKI_NAME} image"
 docker build --build-arg AUTHOR=$USER -t ${PWNWIKI_NAME} ./
 if [ $? -eq 0 ]; then
