@@ -1,0 +1,109 @@
+#!/bin/bash
+#
+# Copyright (C) 2016, David Dittrich <dave.dittrich@gmail.com>. All rights reserved.
+# (See license at bottom of this file.)
+
+# This is a relatively primitive script that helps build a Docker
+# container from the pwnwiki Git repo. Defaults for name, listening
+# interface IP address, and port, are configurable from environment
+# variables (or from the defaults below.) It then forceably kills
+# and removes the container before running it as a daemon, and
+# then doing its best to start the default browser to bring up
+# the pwwiki web site for local access.
+#
+# Note[1]: There is some odd behavior on Mac with 'open' that I haven't quite
+# figured out. If you use 127.0.0.1 (as is the default here, which works on
+# Ubuntu) only Opera seems to work properly. Chrome only works if you set
+# PWNWIKI_IP to 0.0.0.0 (not sure why), and both Firefox and Safari won't
+# render the page at all using either 127.0.0.1 or 0.0.0.0.
+#
+# Note[2]: The default port is 1337 (natch!)  and the default container name is
+# creatively set to "pwnwiki". The Docker container build only takes a bit of
+# time the first time the image is built, after which it builds pretty quickly
+# because it is only creating small layers with the repo contents, etc.
+
+# Defaults and key globals.
+PWNWIKI_NAME="${PWNWIKI_NAME:-pwnwiki}"
+PWNWIKI_IP="${PWNWIKI_IP:-127.0.0.1}"
+PWNWIKI_PORT="${PWNWIKI_PORT:-1337}"
+PWNWIKI_URL="http://${PWNWIKI_IP}:${PWNWIKI_PORT}/"
+OS="$(uname -s)"
+
+echo "[+] (Re)building ${PWNWIKI_NAME} image"
+docker build --build-arg AUTHOR=$USER -t ${PWNWIKI_NAME} ./
+if [ $? -eq 0 ]; then
+	echo '[+] pwnwiki container successfully (re)built'
+else
+	echo '[-] failed to build ${PWNWIKI_NAME} container'
+	exit $?
+fi
+
+# Check to see if pwnwiki containter is already running.
+pwnwiki_is_running=$(docker ps | grep -q "${PWNWIKI_NAME}";  echo $?)
+
+if [ $pwnwiki_is_running -eq 0 ]; then
+	# Kill and remove container.
+	docker kill ${PWNWIKI_NAME} 2>&1 >/dev/null || true
+	docker rm ${PWNWIKI_NAME} 2>&1 >/dev/null || true
+fi
+
+# Run container.
+pwnwiki_id=$(docker run -d -p ${PWNWIKI_PORT}:80 --name ${PWNWIKI_NAME} pwnwiki)
+if [ $? -eq 0 ]; then
+	echo "[+] Started ${PWNWIKI_NAME} container ${pwnwiki_id}"
+	echo "[+] Container listening on ${PWNWIKI_URL}"
+	echo "[+] Stop with 'docker stop ${PWNWIKI_NAME}' and restart with 'docker restart ${PWNWIKI_NAME}'"
+	echo "[+] Kill with 'docker kill ${PWNWIKI_NAME}' or 'docker kill ${pwnwiki_id}"
+	echo "[+] Restart with 'docker restart ${PWNWIKI_NAME}' or 'docker restart ${pwnwiki_id}'"
+else
+	echo "[-] Failed to start ${PWNWIKI_NAME} container"
+	exit $?
+fi
+
+# Connect browser (or explain how).
+case "$OS" in
+	Darwin)
+		open ${PWNWIKI_URL}
+		;;
+	Linux)
+		if [ ! -z "$(which gnome-open)" ]; then
+			gnome-open ${PWNWIKI_URL};
+		elif [ ! -z "$(which x-www-browser)" ]; then
+			x-www-browser ${PWNWIKI_URL};
+		else
+			echo "Connect your browser to ${PWNWIKI_URL}";
+		fi
+		;;
+	     *)
+		echo "Connect your browser to ${PWNWIKI_URL}"
+		;;
+esac
+exit $?
+
+
+# Copyright (C) 2016, David Dittrich <dave.dittrich@gmail.com>. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+# 
+# 1. Redistributions of source code must retain the above copyright notice, this
+# list of conditions and the following disclaimer.
+# 
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+# this list of conditions and the following disclaimer in the documentation
+# and/or other materials provided with the distribution.
+# 
+# 3. Neither the name of the copyright holder nor the names of its contributors
+# may be used to endorse or promote products derived from this software without
+# specific prior written permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
