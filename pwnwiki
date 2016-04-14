@@ -11,13 +11,16 @@
 # then doing its best to start the default browser to bring up
 # the pwwiki web site for local access.
 #
-# Note[1]: This script tries to use localhost, but on Mac OS X
-# it seems to need 0.0.0.0. The default port is 1337 (natch!)
-# and the default name is creatively set to "pwnwiki". The
-# Docker container build only takes a bit of time the first
-# time the image is built, after which it builds pretty quickly
-# because it is only creating small layers with the repo
-# contents, etc.
+# Note[1]: There is some odd behavior on Mac with 'open' that I haven't quite
+# figured out. If you use 127.0.0.1 (as is the default here, which works on
+# Ubuntu) only Opera seems to work properly. Chrome only works if you set
+# PWNWIKI_IP to 0.0.0.0 (not sure why), and both Firefox and Safari won't
+# render the page at all using either 127.0.0.1 or 0.0.0.0.
+#
+# Note[2]: The default port is 1337 (natch!)  and the default container name is
+# creatively set to "pwnwiki". The Docker container build only takes a bit of
+# time the first time the image is built, after which it builds pretty quickly
+# because it is only creating small layers with the repo contents, etc.
 
 # Defaults and key globals.
 PWNWIKI_NAME="${PWNWIKI_NAME:-pwnwiki}"
