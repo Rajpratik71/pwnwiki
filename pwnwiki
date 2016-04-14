@@ -59,7 +59,9 @@ fi
 
 # Connect browser (or explain how).
 case "$OS" in
-	Darwin) open ${PWNWIKI_URL} ;;
+	Darwin)
+		open ${PWNWIKI_URL}
+		;;
 	Linux)
 		if [ ! -z "$(which gnome-open)" ]; then
 			gnome-open ${PWNWIKI_URL};
@@ -67,8 +69,11 @@ case "$OS" in
 			x-www-browser ${PWNWIKI_URL};
 		else
 			echo "Connect your browser to ${PWNWIKI_URL}";
-		fi ;;
-	     *) echo "Connect your browser to ${PWNWIKI_URL}" ;;
+		fi
+		;;
+	     *)
+		echo "Connect your browser to ${PWNWIKI_URL}"
+		;;
 esac
 exit $?
 
