@@ -3,11 +3,11 @@
 # Copyright (C) 2016, David Dittrich <dave.dittrich@gmail.com>. All rights reserved.
 # (See license at bottom of this file.)
 
-PWNWIKI_NAME=${PWNWIKI_NAME:-pwnwiki}
-PWNWIKI_IP=${PWNWIKI_IP:-127.0.0.1:}
-PWNWIKI_PORT=${PWNWIKI_PORT:-1337}
-PWNWIKI_URL="http:${PWNWIKI_IP}:${PWNWIKI_PORT}/"
-OS=$(uname -s)
+PWNWIKI_NAME="${PWNWIKI_NAME:-pwnwiki}"
+PWNWIKI_IP="${PWNWIKI_IP:-127.0.0.1:}"
+PWNWIKI_PORT="${PWNWIKI_PORT:-1337}"
+PWNWIKI_URL="http://${PWNWIKI_IP}${PWNWIKI_PORT}/"
+OS="$(uname -s)"
 
 # (Re)build pwnwiki container.
 docker build --build-arg AUTHOR=$USER -t ${PWNWIKI_NAME} ./
@@ -23,25 +23,24 @@ pwnwiki_is_running=$(docker ps | grep -q "${PWNWIKI_NAME}";  echo $?)
 
 if [ $pwnwiki_is_running -eq 0 ]; then
 	# Kill and remove container.
-	docker kill ${PWNWIKI_NAME} || true
-	docker rm ${PWNWIKI_NAME} || true
+	docker kill ${PWNWIKI_NAME} 2>&1 >/dev/null || true
+	docker rm ${PWNWIKI_NAME} 2>&1 >/dev/null || true
 fi
 
 # Run container.
-docker run -d -p ${PWNWIKI_PORT}:80 --name ${PWNWIKI_NAME} pwnwiki
-echo '$?='$?
+pwnwiki_id=$(docker run -d -p ${PWNWIKI_PORT}:80 --name ${PWNWIKI_NAME} pwnwiki)
+if [ $? -eq 0 ]; then
+	echo "[+] Started ${PWNWIKI_NAME} container listening on ${PWNWIKI_IP}${PWNWIKI_PORT}"
+else
+	echo "[-] Failed to start ${PWNWIKI_NAME} container"
+	exit $?
+fi
 
 # Connect browser (or explain how).
-case $OS in
-	Darwin):
-		open ${PWNWIKI_URL}
-		;;
-	Ubuntu):
-		echo "Start browser Ubuntu..."
-		;;
-	*):
-		echo "Connect your browser to ${PWNWIKI_URL}"
-		;;
+case "$OS" in
+	Darwin) open ${PWNWIKI_URL} ;;
+	Ubuntu) echo "Start browser Ubuntu..." ;;
+	     *) echo "Connect your browser to ${PWNWIKI_URL}" ;;
 esac
 exit $?
 
