@@ -4,10 +4,16 @@
 # (See license at bottom of this file.)
 
 PWNWIKI_NAME="${PWNWIKI_NAME:-pwnwiki}"
-PWNWIKI_IP="${PWNWIKI_IP:-127.0.0.1:}"
+PWNWIKI_IP="${PWNWIKI_IP:-127.0.0.1}"
 PWNWIKI_PORT="${PWNWIKI_PORT:-1337}"
-PWNWIKI_URL="http://${PWNWIKI_IP}${PWNWIKI_PORT}/"
+PWNWIKI_URL="http://${PWNWIKI_IP}:${PWNWIKI_PORT}/"
 OS="$(uname -s)"
+
+if [ $OS == "Darwin" -a $PWNWIKI_IP="127.0.0.1" ]; then
+	# This might be a bug in Docker for Mac? Not sure.
+	PWNWIKI_IP="0.0.0.0"
+	PWNWIKI_URL="http://${PWNWIKI_IP}:${PWNWIKI_PORT}/"
+fi
 
 # (Re)build pwnwiki container.
 docker build --build-arg AUTHOR=$USER -t ${PWNWIKI_NAME} ./
