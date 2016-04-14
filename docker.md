@@ -1,9 +1,6 @@
 ### Serving pwnwiki content locally using Docker:
 
-Using [Docker](https://www.docker.com) on Linux, Mac OS X, or Windows, you can create a container
-that serves the pwnwiki content with a full web server (in this case, using `nginx`) that is running
-locally requiring no network access (or allowing your red team to access the files on a local VLAN
-by setting up your own addressing/routing rules.)
+Using [Docker](https://www.docker.com) on Linux, Mac OS X, or Windows, you can create a container that serves the pwnwiki content with a full web server (in this case, using `nginx`) that is running locally requiring no network access (or allowing your red team to access the files on a local VLAN by setting up your own addressing/routing rules.)
 
 To do this with native Linux Docker, Docker for Mac<sup>2</sup>, or Docker for Windows<sup>2</sup>, follow these steps:
 
@@ -48,7 +45,7 @@ To do this with native Linux Docker, Docker for Mac<sup>2</sup>, or Docker for W
          CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                           NAMES
          bf4cec957eb6        pwnwiki             "/bin/sh -c 'nginx -g"   3 seconds ago       Up 1 seconds        443/tcp, 0.0.0.0:1337->80/tcp   pwnwiki```
 
-  3. Open a browser to the port you chose on `localhost` (or `127.0.0.1`). On a Mac with Docker for Mac, you can do:
+  3. Open a browser to the port you chose on `localhost` (or `127.0.0.1`)<sup>3</sup>. On a Mac with Docker for Mac, you can do:
 
      ```$ open http://127.0.0.1:1337/```
 
@@ -62,8 +59,7 @@ To do this with native Linux Docker, Docker for Mac<sup>2</sup>, or Docker for W
 
 There is a [helper script](pwnwiki) to perform these steps. Just run `./pwnwiki` from a shell prompt.
 
-[Footnote 2]: Using Docker Machine will also work on Mac or Windows, but you will have to go
-through an extra step to determine the IP address to use to get to the `nginx`
-server in the Docker container. These instructions assume use of the native
-Docker for Mac or Docker for Windows apps.
+[Footnote 2]: Using Docker Machine will also work on Mac or Windows, but you will have to go through an extra step to determine the IP address to use to get to the `nginx` server in the Docker container. These instructions assume use of the native Docker for Mac or Docker for Windows apps.
+
+[Footnote 3]: Using `127.0.0.1` (which works on Ubuntu) seems to only work with Opera on OS X. For Chrome, do `export PWNWIKI_IP=0.0.0.0` before running the script and it will work. Neither seems to work with either Firefox or Chrome, so until this is debugged you can set Opera as your default browser using `System Preferences...>General>Default Web Browser` and the default IP as set in the `pwnwiki` script.
 
