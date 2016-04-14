@@ -3,25 +3,43 @@
 # Copyright (C) 2016, David Dittrich <dave.dittrich@gmail.com>. All rights reserved.
 # (See license at bottom of this file.)
 
+# This is a relatively primitive script that helps build a Docker
+# container from the pwnwiki Git repo. Defaults for name, listening
+# interface IP address, and port, are configurable from environment
+# variables (or from the defaults below.) It then forceably kills
+# and removes the container before running it as a daemon, and
+# then doing its best to start the default browser to bring up
+# the pwwiki web site for local access.
+#
+# Note[1]: This script tries to use localhost, but on Mac OS X
+# it seems to need 0.0.0.0. The default port is 1337 (natch!)
+# and the default name is creatively set to "pwnwiki". The
+# Docker container build only takes a bit of time the first
+# time the image is built, after which it builds pretty quickly
+# because it is only creating small layers with the repo
+# contents, etc.
+
+# Defaults and key globals.
 PWNWIKI_NAME="${PWNWIKI_NAME:-pwnwiki}"
 PWNWIKI_IP="${PWNWIKI_IP:-127.0.0.1}"
 PWNWIKI_PORT="${PWNWIKI_PORT:-1337}"
 PWNWIKI_URL="http://${PWNWIKI_IP}:${PWNWIKI_PORT}/"
 OS="$(uname -s)"
 
-if [ $OS == "Darwin" -a $PWNWIKI_IP="127.0.0.1" ]; then
+# Hack for Docker on Mac. (Doesn't seem to work with 127.0.0.1
+# for some reason, and I don't have time to debug it.)
+if [ $OS == "Darwin" -a ${PWNWIKI_IP}="127.0.0.1" ]; then
 	# This might be a bug in Docker for Mac? Not sure.
 	PWNWIKI_IP="0.0.0.0"
 	PWNWIKI_URL="http://${PWNWIKI_IP}:${PWNWIKI_PORT}/"
 fi
 
-# (Re)build pwnwiki container.
 echo "[+] (Re)building ${PWNWIKI_NAME} image"
 docker build --build-arg AUTHOR=$USER -t ${PWNWIKI_NAME} ./
 if [ $? -eq 0 ]; then
 	echo '[+] pwnwiki container successfully (re)built'
 else
-	echo '[-] failed to build pwnwiki container'
+	echo '[-] failed to build ${PWNWIKI_NAME} container'
 	exit $?
 fi
 
@@ -37,7 +55,11 @@ fi
 # Run container.
 pwnwiki_id=$(docker run -d -p ${PWNWIKI_PORT}:80 --name ${PWNWIKI_NAME} pwnwiki)
 if [ $? -eq 0 ]; then
-	echo "[+] Started ${PWNWIKI_NAME} container listening on ${PWNWIKI_URL}"
+	echo "[+] Started ${PWNWIKI_NAME} container ${pwnwiki_id}"
+	echo "[+] Container listening on ${PWNWIKI_URL}"
+	echo "[+] Stop with 'docker stop ${PWNWIKI_NAME}' and restart with 'docker restart ${PWNWIKI_NAME}'"
+	echo "[+] Kill with 'docker kill ${PWNWIKI_NAME}' or 'docker kill ${pwnwiki_id}"
+	echo "[+] Restart with 'docker restart ${PWNWIKI_NAME}' or 'docker restart ${pwnwiki_id}'"
 else
 	echo "[-] Failed to start ${PWNWIKI_NAME} container"
 	exit $?
