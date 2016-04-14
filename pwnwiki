@@ -16,9 +16,10 @@ if [ $OS == "Darwin" -a $PWNWIKI_IP="127.0.0.1" ]; then
 fi
 
 # (Re)build pwnwiki container.
+echo "[+] (Re)building ${PWNWIKI_NAME} image"
 docker build --build-arg AUTHOR=$USER -t ${PWNWIKI_NAME} ./
 if [ $? -eq 0 ]; then
-	echo '[+] pwnwiki container (re)built'
+	echo '[+] pwnwiki container successfully (re)built'
 else
 	echo '[-] failed to build pwnwiki container'
 	exit $?
@@ -36,7 +37,7 @@ fi
 # Run container.
 pwnwiki_id=$(docker run -d -p ${PWNWIKI_PORT}:80 --name ${PWNWIKI_NAME} pwnwiki)
 if [ $? -eq 0 ]; then
-	echo "[+] Started ${PWNWIKI_NAME} container listening on ${PWNWIKI_IP}${PWNWIKI_PORT}"
+	echo "[+] Started ${PWNWIKI_NAME} container listening on ${PWNWIKI_URL}"
 else
 	echo "[-] Failed to start ${PWNWIKI_NAME} container"
 	exit $?
