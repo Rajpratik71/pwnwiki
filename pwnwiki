@@ -45,7 +45,14 @@ fi
 # Connect browser (or explain how).
 case "$OS" in
 	Darwin) open ${PWNWIKI_URL} ;;
-	Ubuntu) echo "Start browser Ubuntu..." ;;
+	Linux)
+		if [ ! -z "$(which gnome-open)" ]; then
+			gnome-open ${PWNWIKI_URL};
+		elif [ ! -z "$(which x-www-browser)" ]; then
+			x-www-browser ${PWNWIKI_URL};
+		else
+			echo "Connect your browser to ${PWNWIKI_URL}";
+		fi ;;
 	     *) echo "Connect your browser to ${PWNWIKI_URL}" ;;
 esac
 exit $?
