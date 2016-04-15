@@ -43,8 +43,7 @@ pwnwiki_is_running=$(docker ps | grep -q "${PWNWIKI_NAME}";  echo $?)
 
 if [ $pwnwiki_is_running -eq 0 ]; then
 	# Kill and remove container.
-	docker kill ${PWNWIKI_NAME} 2>&1 >/dev/null || true
-	docker rm ${PWNWIKI_NAME} 2>&1 >/dev/null || true
+	docker rm -f -v ${PWNWIKI_NAME} 2>&1 >/dev/null || true
 fi
 
 # Run container.
