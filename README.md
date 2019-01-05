@@ -11,15 +11,19 @@ This is the really cool thing about this wiki: when you do a ```git clone``` of 
 
   1. Clone the repository or pull the archive ([download zip](https://github.com/pwnwiki/pwnwiki.github.io/archive/master.zip)) of the repo
   2. Open index.html
-  3. Most modern browsers don't allow the access of local files from a locally loaded HTML file. On Windows you can use [Mongoose Tiny](http://cesanta.com/downloads.html) or [HFS](http://www.rejetto.com/hfs/) to host the files locally. On OSX and Linux `python -m SimpleHTTPServer` seems to work just fine.
+  3. Most modern browsers don't allow the access of local files from a locally loaded HTML file. On Windows you can use [Mongoose Tiny](http://cesanta.com/downloads.html) or [HFS](http://www.rejetto.com/hfs/) to host the files locally. On OSX and Linux `python -m SimpleHTTPServer` seems to work just fine or try the `pypwnwiki.py` script if you need to specify a particular network address or service port.
 
 **Referenced tools can be found here: https://github.com/mubix/post-exploitation (If they aren't built into the OS).**
 
 - - - - - -
 ### Submitting Content
-We want/need your help! Please contribute to this project is via GitHub (https://github.com/pwnwiki/pwnwiki.github.io). That allows us to get your project-ready content incorporated into the wiki fast. Check out the https://github.com/pwnwiki/pwnwiki.github.io/wiki page for details on how to contribute.
+We want/need your help! Please contribute to this project is via GitHub (https://github.com/pwnwiki/pwnwiki.github.io). That allows us to get your project-ready content incorporated into the wiki fast. Check out the [Contribute Page](references/contribute.md) for details on how to contribute.
 
-We realize that not everyone can/wants to submit content via GitHub and that's cool. If your go-to content is not up here and you don't want to spend the time becoming a Git Jedi, just visit our [Google Form](https://docs.google.com/forms/d/1N7-jRjnUXoz-UwB2h0du2IrskFJW6hBGs4YsTwvEncE/viewform). Due to the large amount of submissions and content, there may be a delay between your posting and us getting your content into the project. Thanks for your submissions and your patience! 
+Want to discuss PwnWiki.github.io content? Talk to us at the [PwnWiki Google Form](https://docs.google.com/forms/d/1N7-jRjnUXoz-UwB2h0du2IrskFJW6hBGs4YsTwvEncE/viewform). 
+
+Issues can always be brought to our attention via the [PwnWiki Issue  Management](https://github.com/pwnwiki/pwnwiki.github.io/issues) page.
+
+Thanks for your submissions and your patience! 
 
 - - - - - -
 ### Curators:
