@@ -56,6 +56,12 @@
   * [NodeJS](scripting/NodeJS.md)
   * [Linux bash](scripting/bash.md)
 
+[Cats]()
+
+  * [netcat](cats/netcat.md)
+  * [socat](cats/socat.md)
+  * [ncat](cats/ncat.md)
+  
 [Metasploit]()
 
   * [Meterpreter](msf/meterpreter.md)
@@ -84,4 +90,3 @@ return false;
 }); 
 }); 
 </script>
-
