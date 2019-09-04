@@ -1,0 +1,16 @@
+some WMI fu
+wmic fu search systems for running 'exe' to hijack
+
+FOR /F "delims==" %%A IN ('type ips.txt') DO wmic /Node:%%A wmic /user:username /password:yourpassword /FAILFAST:ON process where "name like '%.exe'" call getowner
+
+wmic fu to dump VPN event logs cisco
+wmic nteventlog where filename='cisco anyconnect vpn client' backupeventlog %USERPROFILE%\desktop\CiscoAnyConnect_VPN_CLient%USERNAME%_%COMPUTERNAME%.evt
+
+Netsess.exe .h
+FOR /F %i in (dcs.txt) do @echo [+] Querying DC %i && @netsess -h %i 2>nul > sessions.txt && FOR /F %a in (admins.txt) DO @type sessions.txt | @findstr /I %a
+FOR /F %i in (ips.txt) DO @echo [+] %i && @tasklist /V /S %i /U user /P password 2>NUL > output.txt && FOR /F %n in (names.txt) DO @type output.txt | findstr %n > NUL && echo [!] %n was found running a process
+on %i && pause
+for /F %i in (ips.txt) do @echo [+] Checking %i && nbtstat -A %i 2>NUL >nbsessions.txt && FOR /F %n in
+(admins.txt) DO @type nbsessions.txt | findstr /I %n > NUL && echo [!] %n was found logged into %i
+for /F %i in (ips.txt) do @echo [+] Checking %i && nbtscan -f %i 2>NUL >nbsessions.txt && FOR /F %n in
+(admins.txt) DO @type nbsessions.txt | findstr /I %n > NUL && echo [!] %n was found logged into %i
